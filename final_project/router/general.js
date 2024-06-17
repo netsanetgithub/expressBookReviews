@@ -5,8 +5,7 @@ let users = require("./auth_users.js").users;
 const public_users = express.Router();
 const axios = require('axios');
 
-//  Task 6
-//  Register a new user
+
 public_users.post("/register", (req,res) => {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -19,28 +18,23 @@ public_users.post("/register", (req,res) => {
     return res.status(201).json({ message: "User registered successfully" });
 });
 
-//  Task10
-// Get book lists
+
 const getBooks = () => {
     return new Promise((resolve, reject) => {
         resolve(books);
     });
 };
 
-//  Task 1
-//  Get the book list available in the shop
+
 public_users.get('/',async function (req, res) {
   try {
     const bookList = await getBooks(); 
-    res.json(bookList); // Neatly format JSON output
-  } catch (error) {
+    res.json(bookList); 
     console.error(error);
     res.status(500).json({ message: "Error retrieving book list" });
   }
 });
 
-//  Task 11
-// Get book details based on ISBN
 const getByISBN = (isbn) => {
     return new Promise((resolve, reject) => {
         let isbnNum = parseInt(isbn);
@@ -52,8 +46,7 @@ const getByISBN = (isbn) => {
     });
 };
 
-//  Task 2
-//  Get book details based on ISBN
+
 public_users.get('/isbn/:isbn',function (req, res) {
     getByISBN(req.params.isbn)
     .then(
@@ -62,8 +55,6 @@ public_users.get('/isbn/:isbn',function (req, res) {
     );
  });
 
-//  Task 3 & Task 12
-//  Get book details based on author
 public_users.get('/author/:author',function (req, res) {
     const author = req.params.author;
     getBooks()
@@ -72,8 +63,7 @@ public_users.get('/author/:author',function (req, res) {
     .then((filteredBooks) => res.send(filteredBooks));
 });
 
-//  Task 4 & Task 12
-//  Get all books based on title
+
 public_users.get('/title/:title',function (req, res) {
     const title = req.params.title;
     getBooks()
@@ -82,8 +72,7 @@ public_users.get('/title/:title',function (req, res) {
     .then((filteredBooks) => res.send(filteredBooks));
 });
 
-//  Task 5 & Task 13
-//  Get book review
+
 public_users.get('/review/:isbn',function (req, res) {
     const isbn = req.params.isbn;
     getByISBN(req.params.isbn)

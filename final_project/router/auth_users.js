@@ -6,20 +6,17 @@ const regd_users = express.Router();
 let users = [];
 
 const isValid = (username)=>{ 
-  //returns boolean
+
   const userMatches = users.filter((user) => user.username === username);
   return userMatches.length > 0;
 }
 
 const authenticatedUser = (username,password)=>{ 
-  //returns boolean
-  //write code to check if username and password match the one we have in records.
-  const matchingUsers = users.filter((user) => user.username === username && user.password === password);
+ const matchingUsers = users.filter((user) => user.username === username && user.password === password);
   return matchingUsers.length > 0;
 }
 
-//  Task 7
-//  Only registered users can login
+
 regd_users.post("/login", (req,res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -34,8 +31,7 @@ regd_users.post("/login", (req,res) => {
   }
 });
 
-//  Task 8
-//  Add a book review
+
 regd_users.put("/auth/review/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   const review = req.body.review;
@@ -50,8 +46,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   }
 });
 
-//  Task 9
-//  Delete a book review
+
 regd_users.delete("/auth/review/:isbn", (req, res) => {
   const isbn = req.params.isbn;
   const username = req.session.authorization.username;
