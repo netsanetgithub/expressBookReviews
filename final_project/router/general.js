@@ -30,6 +30,7 @@ public_users.get('/',async function (req, res) {
   try {
     const bookList = await getBooks(); 
     res.json(bookList); 
+  } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error retrieving book list" });
   }
